@@ -5,7 +5,7 @@ import { useAuth } from "../hooks";
 // import { fetchContacts } from "redux/phonebook/operations";
 import { Container } from "components/App/App.styled";
 
-export default function Home() {
+export default function AddBaptism() {
   const { isLoggedIn, isVerified } = useAuth();
   // const dispatch = useDispatch();
 
@@ -15,23 +15,17 @@ export default function Home() {
   //   }
   // }, [dispatch, isLoggedIn]);
 
-  return isLoggedIn && isVerified ? (
-    <Container>
-      <Helmet>
-        <title>Sacramental records</title>
-      </Helmet>
-      <div>
-        <h1>Sacramental Records</h1>
-      </div>
-    </Container>
-  ) : (
-    <div>
-      <Helmet>
-        <title>Parish Register</title>
-      </Helmet>
-      <div>
-        <div>Parish Register App</div>
-      </div>
-    </div>
+  return (
+    isLoggedIn &&
+    isVerified && (
+      <Container>
+        <Helmet>
+          <title>Add Baptism</title>
+        </Helmet>
+        <div>
+          <h1>Create Baptismal Record</h1>
+        </div>
+      </Container>
+    )
   );
 }

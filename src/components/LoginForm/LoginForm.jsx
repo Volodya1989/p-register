@@ -150,7 +150,7 @@ export const Login = () => {
           setTimeout(() => {
             // window.location.href =
             //   "https://volodya1989.github.io/learn-lingo/#/teachers";
-            window.location.href = `http://localhost:3001/p-register/#/sacraments`;
+            window.location.href = `http://localhost:3000/p-register/#/`;
 
             setActive(false);
             setBtnName("Log In");
