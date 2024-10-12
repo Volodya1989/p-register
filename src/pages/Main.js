@@ -1,35 +1,28 @@
 // Separate named imports, this makes the code more readable
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
 import { Helmet } from "react-helmet";
 
-import { fetchContacts } from "redux/phonebook/operations";
-import { Container, Phonebook, Contacts } from "components/App/App.styled";
-import ContactForm from "components/ContactForm";
-import ContactList from "components/ContactList";
-import Filter from "components/Filter";
+// import { fetchContacts } from "redux/phonebook/operations";
+import { Container } from "components/App/App.styled";
 
 const Main = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
   return (
     <Container>
       <Helmet>
-        <title>Phonebook</title>
+        <title>Parish Register</title>
       </Helmet>
-      <Phonebook>
-        <h1>Phonebook</h1>
-        <ContactForm />
-      </Phonebook>
-      <Contacts>
-        <h1>Contacts</h1>
-
-        <Filter />
-        <ContactList />
-      </Contacts>
+      <div>
+        <h1>Parish Register</h1>
+      </div>
+      <div>
+        <h1>Main Page</h1>
+      </div>
     </Container>
   );
 };

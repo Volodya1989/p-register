@@ -6,12 +6,14 @@ import { Header } from "./AppBar.styled";
 import { useAuth } from "../../hooks";
 
 export const AppBar = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isVerified } = useAuth();
+  console.log("Both", isVerified && isLoggedIn);
+  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <Header>
       <Navigation />
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
+      {isLoggedIn && isVerified ? <UserMenu /> : <AuthNav />}
     </Header>
   );
 };
