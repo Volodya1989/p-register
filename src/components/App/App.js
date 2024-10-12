@@ -1,4 +1,3 @@
-// Separate named imports, this makes the code more readable
 import { useEffect, lazy } from "react";
 import { useDispatch } from "react-redux";
 
