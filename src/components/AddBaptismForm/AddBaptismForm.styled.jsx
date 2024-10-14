@@ -9,12 +9,9 @@ export const Description = styled.div`
   display: block;
   margin: auto;
   margin-top: 100px;
-  max-width: 600px;
+  width: 100%;
+  max-width: 1100px;
   background-color: #f7f7f7;
-  // padding-right: 20px;
-  // padding-left: 20px;
-  // padding-top: 20px;
-  // padding-bottom: 20px;
   padding: 60px 60px;
   border-radius: 30px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),

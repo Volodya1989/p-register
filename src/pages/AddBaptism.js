@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { Container } from "components/App/App.styled";
 import { getBaptisms } from "redux/baptisms/selectors";
 import { fetchBaptisms } from "redux/baptisms/operations";
+import AddBaptismForm from "components/AddBaptismForm";
 export default function AddBaptism() {
   const { isLoggedIn, isVerified } = useAuth();
   const { baptisms } = useSelector(getBaptisms);
@@ -30,6 +31,7 @@ export default function AddBaptism() {
           <h1>Create Baptismal Record</h1>
           <div>Total Number of Baptisms: {baptisms.total}</div>
         </div>
+        <AddBaptismForm />
       </Container>
     )
   );
