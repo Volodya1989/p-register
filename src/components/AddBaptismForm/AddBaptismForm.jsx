@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "use-http";
-import { useNavigate } from "react-router-dom";
 import {
   Description,
   Heading,
@@ -12,7 +11,6 @@ import {
   Wrapper,
   ErrorMessage,
   MainButton,
-  DescrText,
   ProtectedEye,
   ContainerLoader,
 } from "./AddBaptismForm.styled";
@@ -26,7 +24,6 @@ import useLocalStorage from "hooks/useLocalStorage";
 
 export const AddBaptismForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -149,7 +146,6 @@ export const AddBaptismForm = () => {
           setEmail("");
           setBtnName("Logging...");
           setTimeout(() => {
-            navigate();
             setActive(false);
             setBtnName("Log In");
           }, 2000);
@@ -187,11 +183,7 @@ export const AddBaptismForm = () => {
           <StyledToastContainer autoClose={4000} position="top-right">
             <ToastContainer />;
           </StyledToastContainer>
-          <Heading>{`Log In`}</Heading>
-          <DescrText>
-            Welcome back! Please enter your credentials to access your account
-            and continue your search for an teacher.
-          </DescrText>
+          <Heading>{`General Information`}</Heading>
 
           <form onSubmit={handleSubmit((data) => onSubmitForm(data))}>
             {errors.password && (
@@ -209,6 +201,7 @@ export const AddBaptismForm = () => {
               />
               <Label htmlFor={1}>{"Email"}</Label>
             </Wrapper>
+            <input type="checkbox" {...register("January")} />
             <Wrapper>
               <Field
                 {...register("password", {
