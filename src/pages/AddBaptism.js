@@ -1,19 +1,23 @@
 import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
-// import { useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { fetchContacts } from "redux/phonebook/operations";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Container } from "components/App/App.styled";
-
+import { getBaptisms } from "redux/baptisms/selectors";
+import { fetchBaptisms } from "redux/baptisms/operations";
 export default function AddBaptism() {
   const { isLoggedIn, isVerified } = useAuth();
-  // const dispatch = useDispatch();
+  const { baptisms } = useSelector(getBaptisms);
+  console.log("Get all baptisms", baptisms);
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     dispatch(fetchContacts());
-  //   }
-  // }, [dispatch, isLoggedIn]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn && baptisms.length !== 0) {
+      dispatch(fetchBaptisms());
+    }
+  }, [dispatch, isLoggedIn, baptisms.length]);
 
   return (
     isLoggedIn &&
@@ -24,6 +28,8 @@ export default function AddBaptism() {
         </Helmet>
         <div>
           <h1>Create Baptismal Record</h1>
+          <div>Total Number of Baptisms: {baptisms.total}</div>
+          
         </div>
       </Container>
     )
