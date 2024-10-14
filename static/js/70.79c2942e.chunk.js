@@ -147,9 +147,9 @@
     color: #black;
     font-size: 20px;
   }
-`},4916:(e,t,i)=>{i.d(t,{A:()=>a});var o=i(5043);function a(e,t){const[i,a]=(0,o.useState)((()=>{var i;return null!==(i=JSON.parse(window.localStorage.getItem(e)))&&void 0!==i?i:t}));return(0,o.useEffect)((()=>{window.localStorage.setItem(e,JSON.stringify(i))}),[e,i]),[i,a]}},5352:(e,t,i)=>{i.r(t),i.d(t,{default:()=>N});var o=i(1591),a=i(4013),r=i(4858),n=i(5043),s=i(3401),p=(i(2342),i(7933)),l=i(1529);l.Ay.img`
+`},4916:(e,t,i)=>{i.d(t,{A:()=>a});var o=i(5043);function a(e,t){const[i,a]=(0,o.useState)((()=>{var i;return null!==(i=JSON.parse(window.localStorage.getItem(e)))&&void 0!==i?i:t}));return(0,o.useEffect)((()=>{window.localStorage.setItem(e,JSON.stringify(i))}),[e,i]),[i,a]}},5352:(e,t,i)=>{i.r(t),i.d(t,{default:()=>$});var o=i(1591),a=i(4013),r=i(4858),n=i(5043),s=i(3401),p=(i(2342),i(7933)),l=i(3216),d=i(1529);d.Ay.img`
   positon: relative;
-`;const d=l.Ay.div`
+`;const c=d.Ay.div`
   position: relative;
   display: block;
   margin: auto;
@@ -174,24 +174,24 @@
     font-size: 30px;
     line-height: 1.06;
   }
-`,c=(l.Ay.p`
+`,x=(d.Ay.p`
   font-size: var(--subheadingFonSize);
   line-height: 1.18;
   margin-top: 10px;
   margin-bottom: 25px;
-`,l.Ay.h3`
+`,d.Ay.h3`
   font-size: 40px;
   line-height: calc(48 / 40);
   font-weight: 500;
   margin-bottom: 25px;
   text-align: left;
   letter-spacing: -0.02em;
-`),x=l.Ay.p`
+`),g=d.Ay.p`
   font-size: 16px;
   font-weight: 400;
   line-height: calc(22 / 16);
   text-align: left;
-`,g=l.Ay.label`
+`,u=d.Ay.label`
   font-size: 18px;
   font-weight: 300;
   width: 200px;
@@ -203,16 +203,16 @@
   transition: all 0.2s ease;
   pointer-events: none;
   padding-left: 15px;
-`,u=l.Ay.section`
+`,m=d.Ay.section`
   flex-direction: "row";
   alignitems: "center";
   position: relative;
   margin-top: 30px;
-`,m=(l.Ay.img`
+`,h=(d.Ay.img`
   border-radius: 50%;
   width: 44px;
   height: 44px;
-`,l.Ay.input`
+`,d.Ay.input`
   display: flex;
   border: 0;
   font-size: 22px;
@@ -231,18 +231,18 @@
     border-color: #6118de;
   }
 
-  &:focus ~ ${g} {
+  &:focus ~ ${u} {
     transform: translateY(-40px);
     // scale: 0.9;
     color: #9ca5b5;
   }
 
-  ${e=>{let{value:t=""}=e;return t&&`\n    & ~ ${g} {\n      transform: translateY(-40px);\n\n    }\n  `}}
-`),h=l.Ay.p`
+  ${e=>{let{value:t=""}=e;return t&&`\n    & ~ ${u} {\n      transform: translateY(-40px);\n\n    }\n  `}}
+`),f=d.Ay.p`
   font-size: 15px;
   line-height: calc(18 / 12);
   color: red;
-`,f=l.Ay.input`
+`,b=d.Ay.input`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -265,15 +265,15 @@
     opacity: 0.8;
     transition-timing-function: ease;
   }
-`,b=l.Ay.div`
+`,w=d.Ay.div`
   position: absolute;
   top: 0;
   right: 20px;
   cursor: pointer;
-`,w=l.Ay.div`
+`,v=d.Ay.div`
   position: absolute;
   z-index: 10;
   top: 1em;
   left: 8em;
-`;var v=i(6751),y=i(8122),A=i(7318),j=i(8298),k=i(1672),z=i(4916),S=i(579);const C=()=>{const e=(0,j.wA)(),{register:t,handleSubmit:i,formState:{errors:o}}=(0,r.mN)(),{loading:a}=(0,p.Ay)(),[l,C]=(0,n.useState)(""),[N,$]=(0,n.useState)(""),[P,T]=(0,n.useState)("Log In"),[E,R]=(0,n.useState)(!1),[Y,I]=(0,n.useState)(!1),[L,O]=(0,n.useState)(!1),[W,q]=(0,n.useState)(!1),[F,D]=(0,z.A)("isServerUp",!0),_=(0,n.useRef)(null),J=(0,n.useCallback)((e=>{" "!==e.currentTarget.value&&("email"===e.currentTarget.name&&$(e.currentTarget.value.trim()),"password"===e.currentTarget.name&&C(e.currentTarget.value.trim()))}),[$,C]),H=(e,t)=>{s.oR.error(e,{className:"toast-message"})},U=t=>{q(!0),""!==t.password||""!==t.email?(F&&(D(!1),_.current=setTimeout((()=>{var e;e="Please wait as it takes few more seconds for server to wake up.",s.oR.info(e,{className:"toast-message"})}),10500)),C(""),$(""),I(!0),R(!0),e((0,k.E8)({email:t.email.toLowerCase(),password:t.password})).then((e=>{try{var t,i;if(clearTimeout(_.current),I(!1),null!==e&&void 0!==e&&null!==(t=e.error)&&void 0!==t&&t.message){const{payload:t}=e;console.log("ERROR",t);const i="Email in use",o="PASSWORD should have a minimum length of 6",a="Email or password invalid",r=`"email" with value "${e.meta.arg.email}" fails to match the required pattern: /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/`;H(t===i?"Please provide different email.":t===o?`${o} characters.`:t===r?"Please provide valid Email.":t===a?`${a}.`:"Please try again as server error occured."),R(!0),setTimeout((()=>{R(!1)}),4e3)}null!==e&&void 0!==e&&null!==(i=e.error)&&void 0!==i&&i.message||(o="You are logging...",s.oR.success(o,{className:"toast-message"}),R(!0),C(""),$(""),T("Logging..."),setTimeout((()=>{window.location.href="http://localhost:3000/p-register/#/",R(!1),T("Log In")}),2e3))}catch(a){console.log("error",a.message)}var o}))):H("Please provide details")},G=(0,n.useCallback)((e=>{a||W||setTimeout((()=>{I(!0)}),1e3)}),[a,W]);return(0,n.useEffect)((()=>{G()}),[G]),(0,S.jsx)(S.Fragment,{children:Y||W?(0,S.jsxs)(d,{children:[(0,S.jsx)(w,{children:Y&&W&&(0,S.jsx)(y.A,{})}),(0,S.jsxs)(v._W,{autoClose:4e3,position:"top-right",children:[(0,S.jsx)(s.N9,{}),";"]}),(0,S.jsx)(c,{children:"Log In"}),(0,S.jsx)(x,{children:"Welcome back! Please enter your credentials to access your account and continue your search for an teacher."}),(0,S.jsxs)("form",{onSubmit:i((e=>U(e))),children:[o.password&&(0,S.jsx)(h,{children:"Password is required."}),o.email&&(0,S.jsx)(h,{children:"Email is required."}),(0,S.jsxs)(u,{children:[(0,S.jsx)(m,{...t("email",{required:!0,value:N}),onChange:J,name:"email",value:N,autoComplete:"off",type:"text"}),(0,S.jsx)(g,{htmlFor:1,children:"Email"})]}),(0,S.jsxs)(u,{children:[(0,S.jsx)(m,{...t("password",{required:!0,value:l}),sx:{position:"relative"},onChange:J,name:"password",value:l,autoComplete:"off",type:L?"text":"password"}),(0,S.jsx)(b,{onClick:()=>{O(!L)},children:L?(0,S.jsx)(A.Rds,{}):(0,S.jsx)(A.whC,{})}),(0,S.jsx)(g,{htmlFor:1,children:"Password"})]}),(0,S.jsx)(f,{disabled:!l||!N||E,type:"submit",value:Y&&W?"Submitting...":P})]})]}):(0,S.jsx)(y.A,{})})};function N(){return(0,S.jsxs)(a.mc,{children:[(0,S.jsx)(o.m,{children:(0,S.jsx)("title",{children:"Login"})}),(0,S.jsx)(C,{})]})}}}]);
-//# sourceMappingURL=70.cd13dd73.chunk.js.map
+`;var y=i(6751),A=i(8122),j=i(7318),k=i(8298),z=i(1672),S=i(4916),C=i(579);const N=()=>{const e=(0,k.wA)(),t=(0,l.Zp)(),{register:i,handleSubmit:o,formState:{errors:a}}=(0,r.mN)(),{loading:d}=(0,p.Ay)(),[N,$]=(0,n.useState)(""),[P,T]=(0,n.useState)(""),[E,R]=(0,n.useState)("Log In"),[Y,I]=(0,n.useState)(!1),[L,O]=(0,n.useState)(!1),[W,q]=(0,n.useState)(!1),[F,D]=(0,n.useState)(!1),[_,J]=(0,S.A)("isServerUp",!0),H=(0,n.useRef)(null),U=(0,n.useCallback)((e=>{" "!==e.currentTarget.value&&("email"===e.currentTarget.name&&T(e.currentTarget.value.trim()),"password"===e.currentTarget.name&&$(e.currentTarget.value.trim()))}),[T,$]),Z=(e,t)=>{s.oR.error(e,{className:"toast-message"})},G=i=>{D(!0),""!==i.password||""!==i.email?(_&&(J(!1),H.current=setTimeout((()=>{var e;e="Please wait as it takes few more seconds for server to wake up.",s.oR.info(e,{className:"toast-message"})}),10500)),$(""),T(""),O(!0),I(!0),e((0,z.E8)({email:i.email.toLowerCase(),password:i.password})).then((e=>{try{var i,o;if(clearTimeout(H.current),O(!1),null!==e&&void 0!==e&&null!==(i=e.error)&&void 0!==i&&i.message){const{payload:t}=e;console.log("ERROR",t);const i="Email in use",o="PASSWORD should have a minimum length of 6",a="Email or password invalid",r=`"email" with value "${e.meta.arg.email}" fails to match the required pattern: /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/`;Z(t===i?"Please provide different email.":t===o?`${o} characters.`:t===r?"Please provide valid Email.":t===a?`${a}.`:"Please try again as server error occured."),I(!0),setTimeout((()=>{I(!1)}),4e3)}null!==e&&void 0!==e&&null!==(o=e.error)&&void 0!==o&&o.message||(a="You are logging...",s.oR.success(a,{className:"toast-message"}),I(!0),$(""),T(""),R("Logging..."),setTimeout((()=>{t(),I(!1),R("Log In")}),2e3))}catch(r){console.log("error",r.message)}var a}))):Z("Please provide details")},K=(0,n.useCallback)((e=>{d||F||setTimeout((()=>{O(!0)}),1e3)}),[d,F]);return(0,n.useEffect)((()=>{K()}),[K]),(0,C.jsx)(C.Fragment,{children:L||F?(0,C.jsxs)(c,{children:[(0,C.jsx)(v,{children:L&&F&&(0,C.jsx)(A.A,{})}),(0,C.jsxs)(y._W,{autoClose:4e3,position:"top-right",children:[(0,C.jsx)(s.N9,{}),";"]}),(0,C.jsx)(x,{children:"Log In"}),(0,C.jsx)(g,{children:"Welcome back! Please enter your credentials to access your account and continue your search for an teacher."}),(0,C.jsxs)("form",{onSubmit:o((e=>G(e))),children:[a.password&&(0,C.jsx)(f,{children:"Password is required."}),a.email&&(0,C.jsx)(f,{children:"Email is required."}),(0,C.jsxs)(m,{children:[(0,C.jsx)(h,{...i("email",{required:!0,value:P}),onChange:U,name:"email",value:P,autoComplete:"off",type:"text"}),(0,C.jsx)(u,{htmlFor:1,children:"Email"})]}),(0,C.jsxs)(m,{children:[(0,C.jsx)(h,{...i("password",{required:!0,value:N}),sx:{position:"relative"},onChange:U,name:"password",value:N,autoComplete:"off",type:W?"text":"password"}),(0,C.jsx)(w,{onClick:()=>{q(!W)},children:W?(0,C.jsx)(j.Rds,{}):(0,C.jsx)(j.whC,{})}),(0,C.jsx)(u,{htmlFor:1,children:"Password"})]}),(0,C.jsx)(b,{disabled:!N||!P||Y,type:"submit",value:L&&F?"Submitting...":E})]})]}):(0,C.jsx)(A.A,{})})};function $(){return(0,C.jsxs)(a.mc,{children:[(0,C.jsx)(o.m,{children:(0,C.jsx)("title",{children:"Login"})}),(0,C.jsx)(N,{})]})}}}]);
+//# sourceMappingURL=70.79c2942e.chunk.js.map
