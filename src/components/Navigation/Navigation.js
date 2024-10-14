@@ -3,7 +3,6 @@ import { Link } from "./Navigation.styled";
 
 export const Navigation = () => {
   const { isLoggedIn, isVerified, user } = useAuth();
-
   return (
     <nav>
       {isLoggedIn && isVerified && (

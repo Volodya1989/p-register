@@ -118,7 +118,6 @@ export const RegisterForm = () => {
         password: data.password,
       })
     ).then((data) => {
-      console.log(data);
       try {
         clearTimeout(timeoutRef.current);
         setIsLoading(false);

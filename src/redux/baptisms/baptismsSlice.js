@@ -15,7 +15,7 @@ const handleRejected = (state, action) => {
 
 const baptismsSlice = createSlice({
   name: "baptisms",
-  initialState: { baptisms: ["default"], isLoading: false, error: null },
+  initialState: { baptisms: [], isLoading: false, error: null },
   extraReducers: {
     [fetchBaptisms.pending]: handlePending,
     [fetchBaptisms.fulfilled](state, action) {
