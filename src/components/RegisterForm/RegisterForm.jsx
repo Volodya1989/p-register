@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "use-http";
+import { useNavigate } from "react-router-dom";
 import {
   Description,
   Heading,
@@ -46,6 +47,7 @@ export const RegisterForm = () => {
   const timeoutRef = useRef(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //setting query state on change and passing it as props to search component
   const onQueryChange = useCallback(
@@ -153,9 +155,7 @@ export const RegisterForm = () => {
           setTimeout(() => {
             setBtnName("Sign up");
             setActive(false);
-            // window.location.href =
-            //   "https://volodya1989.github.io/learn-lingo/#/login";
-            // window.location.href = `http://localhost:3000/p-register/#/login`;
+            navigate("/login", { replace: true });
           }, 5000);
         }
       } catch (error) {

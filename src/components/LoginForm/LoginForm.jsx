@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "use-http";
+import { useNavigate } from "react-router-dom";
+
 import {
   Description,
   Heading,
@@ -25,6 +27,7 @@ import useLocalStorage from "hooks/useLocalStorage";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -147,10 +150,7 @@ export const Login = () => {
           setEmail("");
           setBtnName("Logging...");
           setTimeout(() => {
-            // window.location.href =
-            //   "https://volodya1989.github.io/learn-lingo/#/teachers";
-            window.location.href = `http://localhost:3000/p-register/#/`;
-
+            navigate();
             setActive(false);
             setBtnName("Log In");
           }, 2000);
