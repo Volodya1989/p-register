@@ -22,7 +22,6 @@ export const fetchOneBaptism = createAsyncThunk(
   async (baptismId, thunkAPI) => {
     try {
       const response = await axios.get(`${baseBaptismURL}${baptismId}`);
-      console.log("One baptism found", response.data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

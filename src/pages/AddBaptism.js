@@ -14,7 +14,7 @@ export default function AddBaptism() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLoggedIn && baptisms.length !== 0) {
+    if (isLoggedIn && baptisms.length === 0) {
       dispatch(fetchBaptisms());
     }
   }, [dispatch, isLoggedIn, baptisms.length]);
@@ -29,7 +29,6 @@ export default function AddBaptism() {
         <div>
           <h1>Create Baptismal Record</h1>
           <div>Total Number of Baptisms: {baptisms.total}</div>
-          
         </div>
       </Container>
     )

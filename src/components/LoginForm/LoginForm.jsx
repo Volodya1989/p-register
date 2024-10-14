@@ -97,7 +97,6 @@ export const Login = () => {
             `Please wait as it takes few more seconds for server to wake up.`
           );
         }, 10500);
-        console.log("TimeoutID", timeoutRef.current);
       }
 
       setPassword("");
