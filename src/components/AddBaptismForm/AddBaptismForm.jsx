@@ -19,8 +19,7 @@ import { StyledToastContainer } from "components/RegisterForm/RegisterForm.style
 import Loader from "components/Loader";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { logIn } from "redux/auth/operations";
-import useLocalStorage from "hooks/useLocalStorage";
+import { addBaptism } from "redux/baptisms/operations";
 
 export const AddBaptismForm = () => {
   const dispatch = useDispatch();
@@ -32,16 +31,13 @@ export const AddBaptismForm = () => {
   } = useForm();
   const { loading } = useFetch();
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [sacrament, setSacrament] = useState("");
   const [BtnName, setBtnName] = useState("Log In");
   const [active, setActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
-  const [isServerStartingUp, setIsServerStartingUp] = useLocalStorage(
-    "isServerUp",
-    true
-  );
+
   const timeoutRef = useRef(null);
 
   //setting query state on change and passing it as props to search component
@@ -50,14 +46,14 @@ export const AddBaptismForm = () => {
       if (e.currentTarget.value === " ") {
         return;
       }
-      if (e.currentTarget.name === "email") {
-        setEmail(e.currentTarget.value.trim());
+      if (e.currentTarget.name === "sacrament") {
+        setSacrament(e.currentTarget.value.trim());
       }
       if (e.currentTarget.name === "password") {
         setPassword(e.currentTarget.value.trim());
       }
     },
-    [setEmail, setPassword]
+    [setSacrament, setPassword]
   );
 
   const togglePassword = () => {
@@ -76,37 +72,28 @@ export const AddBaptismForm = () => {
     });
   };
 
-  const toastInfo = (message, _) => {
-    toast.info(message, {
-      className: "toast-message",
-    });
-  };
+  // const toastInfo = (message, _) => {
+  //   toast.info(message, {
+  //     className: "toast-message",
+  //   });
+  // };
 
   const onSubmitForm = (data) => {
     setIsSubmitSuccessful(true);
 
-    if (data.password === "" && data.email === "") {
+    if (data.password === "" && data.sacrament === "") {
       toastError("Please provide details");
       return;
     } else {
-      if (isServerStartingUp) {
-        setIsServerStartingUp(false);
-        timeoutRef.current = setTimeout(() => {
-          toastInfo(
-            `Please wait as it takes few more seconds for server to wake up.`
-          );
-        }, 10500);
-      }
-
       setPassword("");
-      setEmail("");
+      setSacrament("");
       setIsLoading(true);
       setActive(true);
     }
 
     dispatch(
-      logIn({
-        email: data.email.toLowerCase(),
+      addBaptism({
+        sacrament: data.sacrament.toLowerCase(),
         password: data.password,
       })
     ).then((data) => {
@@ -117,23 +104,6 @@ export const AddBaptismForm = () => {
           const { payload: errorMessage } = data;
           console.log("ERROR", errorMessage);
 
-          const emailInUseError = "Email in use";
-          const passwordError = "PASSWORD should have a minimum length of 6";
-          const passwrodWrongError = "Email or password invalid";
-          const emailError = `"email" with value "${data.meta.arg.email}" fails to match the required pattern: /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/`;
-
-          if (errorMessage === emailInUseError) {
-            toastError("Please provide different email.");
-          } else if (errorMessage === passwordError) {
-            toastError(`${passwordError} characters.`);
-          } else if (errorMessage === emailError) {
-            toastError("Please provide valid Email.");
-          } else if (errorMessage === passwrodWrongError) {
-            toastError(`${passwrodWrongError}.`);
-          } else {
-            toastError(`Please try again as server error occured.`);
-          }
-
           setActive(true);
           setTimeout(() => {
             setActive(false);
@@ -143,7 +113,7 @@ export const AddBaptismForm = () => {
           toastSuccess(`You are logging...`);
           setActive(true);
           setPassword("");
-          setEmail("");
+          setSacrament("");
           setBtnName("Logging...");
           setTimeout(() => {
             setActive(false);
@@ -189,17 +159,19 @@ export const AddBaptismForm = () => {
             {errors.password && (
               <ErrorMessage>Password is required.</ErrorMessage>
             )}
-            {errors.email && <ErrorMessage>Email is required.</ErrorMessage>}
+            {errors.sacrament && (
+              <ErrorMessage>Sacrament is required.</ErrorMessage>
+            )}
             <Wrapper>
               <Field
-                {...register("email", { required: true, value: email })}
+                {...register("sacrament", { required: true, value: sacrament })}
                 onChange={onQueryChange}
-                name="email"
-                value={email}
+                name="sacrament"
+                value={sacrament}
                 autoComplete="off"
                 type={"text"}
               />
-              <Label htmlFor={1}>{"Email"}</Label>
+              <Label htmlFor={1}>{"Sacrament"}</Label>
             </Wrapper>
             <input type="checkbox" {...register("January")} />
             <Wrapper>
@@ -224,7 +196,7 @@ export const AddBaptismForm = () => {
             </Wrapper>
 
             <MainButton
-              disabled={password && email ? active : true}
+              disabled={password && sacrament ? active : true}
               type="submit"
               value={
                 isLoading && isSubmitSuccessful ? "Submitting..." : BtnName
