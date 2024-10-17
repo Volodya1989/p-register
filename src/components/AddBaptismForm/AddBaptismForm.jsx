@@ -1,23 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useCallback, useEffect, useState, useRef } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import useFetch from "use-http";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import { Controller } from "react-hook-form";
+import { InputField } from "components/FormComponents/InputField/InputField";
 import {
   Description,
   Heading,
-  Label,
-  Field,
-  Wrapper,
   ErrorMessage,
   MainButton,
-  ProtectedEye,
   ContainerLoader,
+  SubHeading,
 } from "./AddBaptismForm.styled";
-import { ToastContainer } from "react-toastify";
-import { StyledToastContainer } from "components/RegisterForm/RegisterForm.styled";
 import Loader from "components/Loader";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { addBaptism } from "redux/baptisms/operations";
 
@@ -25,17 +20,19 @@ export const AddBaptismForm = () => {
   const dispatch = useDispatch();
 
   const {
-    register,
+    // register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
   const { loading } = useFetch();
-  const [password, setPassword] = useState("");
-  const [sacrament, setSacrament] = useState("");
-  const [BtnName, setBtnName] = useState("Log In");
-  const [active, setActive] = useState(false);
+  const [sacrament, setSacrament] = useState("Baptism");
+  const [neophyteFirstName, setNeophyteFirstName] = useState(null);
+  const [certificate, setCertificate] = useState("Certificate");
+  const [BtnName, setBtnName] = useState("Save");
+  // const [active, setActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
 
   const timeoutRef = useRef(null);
@@ -49,52 +46,29 @@ export const AddBaptismForm = () => {
       if (e.currentTarget.name === "sacrament") {
         setSacrament(e.currentTarget.value.trim());
       }
-      if (e.currentTarget.name === "password") {
-        setPassword(e.currentTarget.value.trim());
+      if (e.currentTarget.name === "neophyteFirstName") {
+        setNeophyteFirstName(e.currentTarget.value.trim());
       }
     },
-    [setSacrament, setPassword]
+    [setSacrament]
   );
-
-  const togglePassword = () => {
-    setIsVisible(!isVisible);
-  };
-
-  //common method success notifications
-  const toastSuccess = (message, _) => {
-    toast.success(message, {
-      className: "toast-message",
-    });
-  };
-  const toastError = (message, _) => {
-    toast.error(message, {
-      className: "toast-message",
-    });
-  };
-
-  // const toastInfo = (message, _) => {
-  //   toast.info(message, {
-  //     className: "toast-message",
-  //   });
-  // };
+  console.log("currentValue of the sacrament", sacrament);
 
   const onSubmitForm = (data) => {
     setIsSubmitSuccessful(true);
-
-    if (data.password === "" && data.sacrament === "") {
-      toastError("Please provide details");
+    console.log("data", data);
+    if (data.sacrament === "") {
       return;
     } else {
-      setPassword("");
-      setSacrament("");
+      // setSacrament("");
       setIsLoading(true);
-      setActive(true);
+      // setActive(true);
     }
 
     dispatch(
       addBaptism({
-        sacrament: data.sacrament.toLowerCase(),
-        password: data.password,
+        sacrament: data.sacrament,
+        certificate: data.certificate,
       })
     ).then((data) => {
       try {
@@ -103,21 +77,18 @@ export const AddBaptismForm = () => {
         if (data?.error?.message) {
           const { payload: errorMessage } = data;
           console.log("ERROR", errorMessage);
-
-          setActive(true);
+          // setActive(true);
           setTimeout(() => {
-            setActive(false);
+            // setActive(false);
           }, 4000);
         }
         if (!data?.error?.message) {
-          toastSuccess(`You are logging...`);
-          setActive(true);
-          setPassword("");
-          setSacrament("");
-          setBtnName("Logging...");
+          // setActive(true);
+          // setSacrament("");
+          setBtnName("Saving...");
           setTimeout(() => {
-            setActive(false);
-            setBtnName("Log In");
+            // setActive(false);
+            setBtnName("Save");
           }, 2000);
         }
       } catch (error) {
@@ -145,65 +116,75 @@ export const AddBaptismForm = () => {
       {!isLoading && !isSubmitSuccessful ? (
         <Loader />
       ) : (
-        <Description>
+        <>
           <ContainerLoader>
             {isLoading && isSubmitSuccessful && <Loader />}
           </ContainerLoader>
 
-          <StyledToastContainer autoClose={4000} position="top-right">
-            <ToastContainer />;
-          </StyledToastContainer>
-          <Heading>{`General Information`}</Heading>
+          <Heading>{`Add Baptism Form`}</Heading>
 
           <form onSubmit={handleSubmit((data) => onSubmitForm(data))}>
-            {errors.password && (
-              <ErrorMessage>Password is required.</ErrorMessage>
-            )}
             {errors.sacrament && (
               <ErrorMessage>Sacrament is required.</ErrorMessage>
             )}
-            <Wrapper>
-              <Field
-                {...register("sacrament", { required: true, value: sacrament })}
-                onChange={onQueryChange}
-                name="sacrament"
-                value={sacrament}
-                autoComplete="off"
-                type={"text"}
+
+            <Description>
+              <SubHeading>{"General Information"}</SubHeading>
+              <InputField
+                onQueryChange={onQueryChange}
+                fieldValue={"Baptism"}
+                fieldName={"sacrament"}
+                disabledStatus={true}
+                labelName={"Sacrament"}
               />
-              <Label htmlFor={1}>{"Sacrament"}</Label>
-            </Wrapper>
-            <input type="checkbox" {...register("January")} />
-            <Wrapper>
-              <Field
-                {...register("password", {
-                  required: true,
-                  value: password,
-                })}
-                sx={{
-                  position: "relative",
-                }}
-                onChange={onQueryChange}
-                name="password"
-                value={password}
-                autoComplete="off"
-                type={isVisible ? "text" : "password"}
+              <FormControlLabel
+                label={"Certificate"}
+                control={
+                  <Controller
+                    name="certificate"
+                    control={control}
+                    defaultValue={true}
+                    value={certificate}
+                    render={({ field }) => (
+                      <Checkbox {...field} defaultChecked />
+                    )}
+                    onClick={(e) => {
+                      setCertificate(e.target.checked);
+                    }}
+                  />
+                }
               />
-              <ProtectedEye onClick={togglePassword}>
-                {!isVisible ? <IoEyeOutline /> : <IoEyeOffOutline />}
-              </ProtectedEye>
-              <Label htmlFor={1}>{"Password"}</Label>
-            </Wrapper>
+            </Description>
+
+            <Description>
+              <SubHeading>{"Neophyte"}</SubHeading>
+
+              <InputField
+                onQueryChange={onQueryChange}
+                fieldValue={neophyteFirstName}
+                fieldName={"neophyteFirstName"}
+                disabledStatus={false}
+                labelName={"First Name"}
+              />
+            </Description>
+
+            {/* <Grid item xs={4} key={i}>
+              <FormControlLabel
+                value={option.id}
+                control={<Checkbox />}
+                label={option.name}
+                name={`techStack[${option.id}]`}
+                inputRef={register}
+              />
+              </Grid> */}
 
             <MainButton
-              disabled={password && sacrament ? active : true}
+              // disabled={password && sacrament ? active : true}
               type="submit"
-              value={
-                isLoading && isSubmitSuccessful ? "Submitting..." : BtnName
-              }
+              value={isLoading && isSubmitSuccessful ? "Saving..." : BtnName}
             />
           </form>
-        </Description>
+        </>
       )}
     </>
   );
