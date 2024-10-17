@@ -12,7 +12,7 @@ export const Description = styled.div`
   width: 100%;
   max-width: 1100px;
   background-color: #f7f7f7;
-  padding: 60px 60px;
+  padding: 40px 40px;
   border-radius: 30px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
@@ -40,6 +40,17 @@ export const Heading = styled.h3`
   font-weight: 500;
   margin-bottom: 25px;
   text-align: left;
+  letter-spacing: -0.02em;
+`;
+
+export const SubHeading = styled.h6`
+  font-size: 25px;
+  line-height: calc(48 / 40);
+  font-weight: 500;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  text-align: left;
+
   letter-spacing: -0.02em;
 `;
 export const DescrText = styled.p`
