@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import useFetch from "use-http";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
-import { InputField } from "components/FormComponents/InputField/InputField";
+// import { InputField } from "components/FormComponents/InputField/InputField";
+import { Field, Wrapper, Label } from "./AddBaptismForm.styled";
 import {
   Description,
   Heading,
@@ -20,15 +21,18 @@ export const AddBaptismForm = () => {
   const dispatch = useDispatch();
 
   const {
-    // register,
+    register,
     handleSubmit,
     formState: { errors },
     control,
   } = useForm();
   const { loading } = useFetch();
   const [sacrament, setSacrament] = useState("Baptism");
-  const [neophyteFirstName, setNeophyteFirstName] = useState(null);
-  const [certificate, setCertificate] = useState("Certificate");
+  const [neophyteFirstName, setNeophyteFirstName] = useState("");
+  const [certificate, setCertificate] = useState("certificate");
+  const [baptism, setBaptism] = useState("baptism");
+  const [eucharist, setEucharist] = useState("eucharist");
+  const [chrismation, setChrismation] = useState("chrismation");
   const [BtnName, setBtnName] = useState("Save");
   // const [active, setActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,16 +47,25 @@ export const AddBaptismForm = () => {
       if (e.currentTarget.value === " ") {
         return;
       }
-      if (e.currentTarget.name === "sacrament") {
-        setSacrament(e.currentTarget.value.trim());
-      }
-      if (e.currentTarget.name === "neophyteFirstName") {
-        setNeophyteFirstName(e.currentTarget.value.trim());
+      let curValue = e.currentTarget.name;
+      switch (curValue) {
+        case "sacrament":
+          setSacrament(e.currentTarget.value.trim());
+          console.log("SACRAMENT", e.currentTarget.value.trim());
+          break;
+        case "neophyteFirstName": // Value of foo matches this criteria; execution starts from here
+          setNeophyteFirstName(e.currentTarget.value.trim());
+          break;
+        // Forgotten break! Execution falls through
+        // case "chrismation":
+        //   setChrismation(e.currentTarget.value.trim());
+        //   break;
+        default:
+          console.log("default");
       }
     },
     [setSacrament]
   );
-  console.log("currentValue of the sacrament", sacrament);
 
   const onSubmitForm = (data) => {
     setIsSubmitSuccessful(true);
@@ -69,8 +82,14 @@ export const AddBaptismForm = () => {
       addBaptism({
         sacrament: data.sacrament,
         certificate: data.certificate,
+        baptism: data.baptism,
+        eucharist: data.eucharist,
+        neophyte: {
+          firstName: data.neophyteFirstName,
+        },
       })
     ).then((data) => {
+      console.log("certificate log", data);
       try {
         clearTimeout(timeoutRef.current);
         setIsLoading(false);
@@ -130,13 +149,29 @@ export const AddBaptismForm = () => {
 
             <Description>
               <SubHeading>{"General Information"}</SubHeading>
-              <InputField
+              {/* <InputField
                 onQueryChange={onQueryChange}
-                fieldValue={"Baptism"}
+                fieldValue={sacrament}
                 fieldName={"sacrament"}
                 disabledStatus={true}
                 labelName={"Sacrament"}
-              />
+              /> */}
+
+              <Wrapper>
+                <Field
+                  {...register("sacrament", {
+                    required: true,
+                    value: sacrament,
+                  })}
+                  onChange={onQueryChange}
+                  name={"sacrament"}
+                  value={sacrament}
+                  autoComplete="off"
+                  type={"text"}
+                  disabled={true}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
               <FormControlLabel
                 label={"Certificate"}
                 control={
@@ -145,11 +180,54 @@ export const AddBaptismForm = () => {
                     control={control}
                     defaultValue={true}
                     value={certificate}
-                    render={({ field }) => (
-                      <Checkbox {...field} defaultChecked />
-                    )}
+                    render={({ field }) => <Checkbox {...field} />}
                     onClick={(e) => {
                       setCertificate(e.target.checked);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                label={"Baptism"}
+                control={
+                  <Controller
+                    name="baptism"
+                    control={control}
+                    defaultValue={true}
+                    value={baptism}
+                    render={({ field }) => <Checkbox {...field} />}
+                    onClick={(e) => {
+                      setBaptism(e.target.checked);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                label={"Eucharist"}
+                control={
+                  <Controller
+                    name="eucharist"
+                    control={control}
+                    defaultValue={true}
+                    value={eucharist}
+                    render={({ field }) => <Checkbox {...field} />}
+                    onClick={(e) => {
+                      setEucharist(e.target.checked);
+                    }}
+                  />
+                }
+              />
+              <FormControlLabel
+                label={"Chrismation"}
+                control={
+                  <Controller
+                    name="chrismation"
+                    control={control}
+                    defaultValue={true}
+                    value={chrismation}
+                    render={({ field }) => <Checkbox {...field} />}
+                    onClick={(e) => {
+                      setChrismation(e.target.checked);
                     }}
                   />
                 }
@@ -159,24 +237,29 @@ export const AddBaptismForm = () => {
             <Description>
               <SubHeading>{"Neophyte"}</SubHeading>
 
-              <InputField
+              {/* <InputField
                 onQueryChange={onQueryChange}
                 fieldValue={neophyteFirstName}
                 fieldName={"neophyteFirstName"}
                 disabledStatus={false}
                 labelName={"First Name"}
-              />
+              /> */}
+              <Wrapper>
+                <Field
+                  {...register("neophyteFirstName", {
+                    required: true,
+                    value: neophyteFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"neophyteFirstName"}
+                  value={neophyteFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                  disabled={false}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
             </Description>
-
-            {/* <Grid item xs={4} key={i}>
-              <FormControlLabel
-                value={option.id}
-                control={<Checkbox />}
-                label={option.name}
-                name={`techStack[${option.id}]`}
-                inputRef={register}
-              />
-              </Grid> */}
 
             <MainButton
               // disabled={password && sacrament ? active : true}

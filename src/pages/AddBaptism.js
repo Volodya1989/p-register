@@ -10,7 +10,6 @@ import AddBaptismForm from "components/AddBaptismForm";
 export default function AddBaptism() {
   const { isLoggedIn, isVerified } = useAuth();
   const { baptisms } = useSelector(getBaptisms);
-  console.log("Get all baptisms", baptisms);
 
   const dispatch = useDispatch();
 
