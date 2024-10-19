@@ -180,7 +180,9 @@ export const AddBaptismForm = () => {
                     control={control}
                     defaultValue={true}
                     value={certificate}
-                    render={({ field }) => <Checkbox {...field} />}
+                    render={({ field }) => (
+                      <Checkbox {...field} color="success" />
+                    )}
                     onClick={(e) => {
                       setCertificate(e.target.checked);
                     }}
@@ -195,7 +197,9 @@ export const AddBaptismForm = () => {
                     control={control}
                     defaultValue={true}
                     value={baptism}
-                    render={({ field }) => <Checkbox {...field} />}
+                    render={({ field }) => (
+                      <Checkbox {...field} defaultChecked color="success" />
+                    )}
                     onClick={(e) => {
                       setBaptism(e.target.checked);
                     }}
@@ -210,7 +214,9 @@ export const AddBaptismForm = () => {
                     control={control}
                     defaultValue={true}
                     value={eucharist}
-                    render={({ field }) => <Checkbox {...field} />}
+                    render={({ field }) => (
+                      <Checkbox {...field} color="success" />
+                    )}
                     onClick={(e) => {
                       setEucharist(e.target.checked);
                     }}
@@ -225,7 +231,9 @@ export const AddBaptismForm = () => {
                     control={control}
                     defaultValue={true}
                     value={chrismation}
-                    render={({ field }) => <Checkbox {...field} />}
+                    render={({ field }) => (
+                      <Checkbox {...field} color="success" />
+                    )}
                     onClick={(e) => {
                       setChrismation(e.target.checked);
                     }}
