@@ -53,6 +53,17 @@ export const SubHeading = styled.h6`
 
   letter-spacing: -0.02em;
 `;
+
+export const SubDescr = styled.h6`
+  font-size: 20px;
+  line-height: calc(38 / 30);
+  font-weight: 500;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  text-align: left;
+
+  letter-spacing: -0.02em;
+`;
 export const DescrText = styled.p`
   font-size: 16px;
   font-weight: 400;
