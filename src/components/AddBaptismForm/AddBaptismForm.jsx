@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { Field, Wrapper, Label } from "./AddBaptismForm.styled";
+import { Field, Wrapper, Label, SubDescr } from "./AddBaptismForm.styled";
 import {
   Description,
   Heading,
@@ -35,13 +35,24 @@ export const AddBaptismForm = () => {
   const [sacrament, setSacrament] = useState("Baptism");
   const [neophyteFirstName, setNeophyteFirstName] = useState("");
   const [neophyteLastName, setNeophyteLastName] = useState("");
+  const [neophyteMiddleName, setNeophyteMiddleName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cityOfBirth, setCityOfBirth] = useState("");
+  const [stateOfBirth, setStateOfBirth] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setstate] = useState("");
+  const [zip, setZip] = useState("");
+  const [motherFirstName, setMotherFirstName] = useState("");
+  const [motherLastName, setMotherLastName] = useState("");
+  const [motherPhoneNumber, setMotherPhoneNumber] = useState("");
 
   const [certificate, setCertificate] = useState(false);
   const [baptism, setBaptism] = useState(true);
   const [eucharist, setEucharist] = useState(false);
   const [chrismation, setChrismation] = useState(false);
   const [BtnName, setBtnName] = useState("Save");
-  // const [curDate, setCurDate] = useState(new Date());
   // const [active, setActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   // const [isVisible, setIsVisible] = useState(false);
@@ -61,12 +72,49 @@ export const AddBaptismForm = () => {
           setSacrament(e.currentTarget.value.trim());
           console.log("SACRAMENT", e.currentTarget.value.trim());
           break;
-        case "neophyteFirstName": // Value of foo matches this criteria; execution starts from here
+        case "neophyteFirstName":
           setNeophyteFirstName(e.currentTarget.value.trim());
           break;
-        case "neophyteLastName": // Value of foo matches this criteria; execution starts from here
+        case "neophyteLastName":
           setNeophyteLastName(e.currentTarget.value.trim());
           break;
+        case "neophyteMiddleName":
+          setNeophyteMiddleName(e.currentTarget.value.trim());
+          break;
+        case "email":
+          setEmail(e.currentTarget.value.trim());
+          break;
+        case "phone":
+          setPhone(e.currentTarget.value.trim());
+          break;
+        case "cityOfBirth":
+          setCityOfBirth(e.currentTarget.value.trim());
+          break;
+        case "stateOfBirth":
+          setStateOfBirth(e.currentTarget.value.trim());
+          break;
+        case "street":
+          setStreet(e.currentTarget.value.trim());
+          break;
+        case "city":
+          setCity(e.currentTarget.value.trim());
+          break;
+        case "state":
+          setstate(e.currentTarget.value.trim());
+          break;
+        case "zip":
+          setZip(e.currentTarget.value.trim());
+          break;
+        case "motherFirstName":
+          setMotherFirstName(e.currentTarget.value.trim());
+          break;
+        case "motherLastName":
+          setMotherLastName(e.currentTarget.value.trim());
+          break;
+        case "motherPhoneNumber":
+          setMotherPhoneNumber(e.currentTarget.value.trim());
+          break;
+
         default:
           console.log("default");
       }
@@ -84,21 +132,57 @@ export const AddBaptismForm = () => {
       setIsLoading(true);
       // setActive(true);
     }
-
+    const {
+      sacrament,
+      certificate,
+      baptism,
+      eucharist,
+      date,
+      neophyteFirstName,
+      neophyteLastName,
+      neophyteMiddleName,
+      email,
+      phone,
+      dob,
+      cityOfBirth,
+      stateOfBirth,
+      street,
+      city,
+      state,
+      zip,
+      motherFirstName,
+      motherLastName,
+      motherPhoneNumber,
+    } = data;
     dispatch(
       addBaptism({
-        sacrament: data.sacrament,
-        certificate: data.certificate,
-        baptism: data.baptism,
-        eucharist: data.eucharist,
-        data: data.date.$d,
+        sacrament,
+        certificate,
+        baptism,
+        eucharist,
+        date: date.$d,
         neophyte: {
-          firstName: data.neophyteFirstName,
-          lastName: data.neophyteLastName,
+          firstName: neophyteFirstName,
+          lastName: neophyteLastName,
+          middleName: neophyteMiddleName,
+          email,
+          phone,
+          dob: dob.$d,
+          cityOfBirth,
+          stateOfBirth,
+          street,
+          city,
+          state,
+          zip,
+        },
+        mother: {
+          maidenName: motherLastName,
+          firstName: motherFirstName,
+          phone: motherPhoneNumber,
         },
       })
     ).then((data) => {
-      console.log("certificate log", data);
+      console.log("Data", data.meta.arg);
       try {
         clearTimeout(timeoutRef.current);
         setIsLoading(false);
@@ -257,6 +341,7 @@ export const AddBaptismForm = () => {
                   return (
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
+                        label="Sacrament Performed"
                         value={field.value}
                         onChange={(date) => {
                           console.log({ date });
@@ -265,7 +350,6 @@ export const AddBaptismForm = () => {
                         variant="inline"
                         autoOk
                         format="DD/MM/YYYY"
-                        // onChange={(e) => field.onChange(e)}
                       />
                     </LocalizationProvider>
                   );
@@ -275,7 +359,6 @@ export const AddBaptismForm = () => {
 
             <Description>
               <SubHeading>{"Neophyte"}</SubHeading>
-
               <Wrapper>
                 <Field
                   {...register("neophyteFirstName", {
@@ -303,6 +386,201 @@ export const AddBaptismForm = () => {
                   type={"text"}
                 />
                 <Label htmlFor={1}>{"Last Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("neophyteMiddleName", {
+                    required: true,
+                    value: neophyteMiddleName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"neophyteMiddleName"}
+                  value={neophyteMiddleName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Middle Name (optional)"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("email", {
+                    required: true,
+                    value: email,
+                  })}
+                  onChange={onQueryChange}
+                  name={"email"}
+                  value={email}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Email"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("phone", {
+                    required: true,
+                    value: phone,
+                  })}
+                  onChange={onQueryChange}
+                  name={"phone"}
+                  value={phone}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Phone"}</Label>
+              </Wrapper>
+              <Controller
+                name="dob"
+                control={control}
+                defaultValue={null}
+                render={({ field, ...props }) => {
+                  return (
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label="DOB"
+                        value={field.value}
+                        onChange={(date) => {
+                          console.log({ date });
+                          field.onChange(date);
+                        }}
+                        variant="inline"
+                        autoOk
+                        format="DD/MM/YYYY"
+                      />
+                    </LocalizationProvider>
+                  );
+                }}
+              />
+              <Wrapper>
+                <Field
+                  {...register("cityOfBirth", {
+                    required: true,
+                    value: cityOfBirth,
+                  })}
+                  onChange={onQueryChange}
+                  name={"cityOfBirth"}
+                  value={cityOfBirth}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"City of Birth"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("stateOfBirth", {
+                    required: true,
+                    value: stateOfBirth,
+                  })}
+                  onChange={onQueryChange}
+                  name={"stateOfBirth"}
+                  value={stateOfBirth}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"State of Birth"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("street", {
+                    required: true,
+                    value: street,
+                  })}
+                  onChange={onQueryChange}
+                  name={"street"}
+                  value={street}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Street"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("city", {
+                    required: true,
+                    value: city,
+                  })}
+                  onChange={onQueryChange}
+                  name={"city"}
+                  value={city}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"City"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("state", {
+                    required: true,
+                    value: state,
+                  })}
+                  onChange={onQueryChange}
+                  name={"state"}
+                  value={state}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"State"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("zip", {
+                    required: true,
+                    value: zip,
+                  })}
+                  onChange={onQueryChange}
+                  name={"zip"}
+                  value={zip}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Zip"}</Label>
+              </Wrapper>
+            </Description>
+
+            <Description>
+              <SubHeading>{"Parents"}</SubHeading>
+              <SubDescr>{"Mother"}</SubDescr>
+              <Wrapper>
+                <Field
+                  {...register("motherFirstName", {
+                    required: true,
+                    value: motherFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"motherFirstName"}
+                  value={motherFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("motherLastName", {
+                    required: true,
+                    value: motherLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"motherLastName"}
+                  value={motherLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
+              </Wrapper>{" "}
+              <Wrapper>
+                <Field
+                  {...register("motherPhoneNumber", {
+                    required: true,
+                    value: motherPhoneNumber,
+                  })}
+                  onChange={onQueryChange}
+                  name={"motherPhoneNumber"}
+                  value={motherPhoneNumber}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Phone"}</Label>
               </Wrapper>
             </Description>
 
