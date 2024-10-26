@@ -1,9 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useCallback, useEffect, useState, useRef } from "react";
 import useFetch from "use-http";
+
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
 // import { InputField } from "components/FormComponents/InputField/InputField";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 import { Field, Wrapper, Label } from "./AddBaptismForm.styled";
 import {
   Description,
@@ -29,11 +34,14 @@ export const AddBaptismForm = () => {
   const { loading } = useFetch();
   const [sacrament, setSacrament] = useState("Baptism");
   const [neophyteFirstName, setNeophyteFirstName] = useState("");
-  const [certificate, setCertificate] = useState("certificate");
-  const [baptism, setBaptism] = useState("baptism");
-  const [eucharist, setEucharist] = useState("eucharist");
-  const [chrismation, setChrismation] = useState("chrismation");
+  const [neophyteLastName, setNeophyteLastName] = useState("");
+
+  const [certificate, setCertificate] = useState(false);
+  const [baptism, setBaptism] = useState(true);
+  const [eucharist, setEucharist] = useState(false);
+  const [chrismation, setChrismation] = useState(false);
   const [BtnName, setBtnName] = useState("Save");
+  // const [curDate, setCurDate] = useState(new Date());
   // const [active, setActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   // const [isVisible, setIsVisible] = useState(false);
@@ -56,10 +64,9 @@ export const AddBaptismForm = () => {
         case "neophyteFirstName": // Value of foo matches this criteria; execution starts from here
           setNeophyteFirstName(e.currentTarget.value.trim());
           break;
-        // Forgotten break! Execution falls through
-        // case "chrismation":
-        //   setChrismation(e.currentTarget.value.trim());
-        //   break;
+        case "neophyteLastName": // Value of foo matches this criteria; execution starts from here
+          setNeophyteLastName(e.currentTarget.value.trim());
+          break;
         default:
           console.log("default");
       }
@@ -84,8 +91,10 @@ export const AddBaptismForm = () => {
         certificate: data.certificate,
         baptism: data.baptism,
         eucharist: data.eucharist,
+        data: data.date.$d,
         neophyte: {
           firstName: data.neophyteFirstName,
+          lastName: data.neophyteLastName,
         },
       })
     ).then((data) => {
@@ -170,7 +179,7 @@ export const AddBaptismForm = () => {
                   type={"text"}
                   disabled={true}
                 />
-                <Label htmlFor={1}>{"First Name"}</Label>
+                <Label htmlFor={1}>{"Sacrament"}</Label>
               </Wrapper>
               <FormControlLabel
                 label={"Certificate"}
@@ -178,7 +187,7 @@ export const AddBaptismForm = () => {
                   <Controller
                     name="certificate"
                     control={control}
-                    defaultValue={true}
+                    defaultValue={false}
                     value={certificate}
                     render={({ field }) => (
                       <Checkbox {...field} color="success" />
@@ -212,7 +221,7 @@ export const AddBaptismForm = () => {
                   <Controller
                     name="eucharist"
                     control={control}
-                    defaultValue={true}
+                    defaultValue={false}
                     value={eucharist}
                     render={({ field }) => (
                       <Checkbox {...field} color="success" />
@@ -229,7 +238,7 @@ export const AddBaptismForm = () => {
                   <Controller
                     name="chrismation"
                     control={control}
-                    defaultValue={true}
+                    defaultValue={false}
                     value={chrismation}
                     render={({ field }) => (
                       <Checkbox {...field} color="success" />
@@ -240,18 +249,33 @@ export const AddBaptismForm = () => {
                   />
                 }
               />
+              <Controller
+                name="date"
+                control={control}
+                defaultValue={null}
+                render={({ field, ...props }) => {
+                  return (
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        value={field.value}
+                        onChange={(date) => {
+                          console.log({ date });
+                          field.onChange(date);
+                        }}
+                        variant="inline"
+                        autoOk
+                        format="DD/MM/YYYY"
+                        // onChange={(e) => field.onChange(e)}
+                      />
+                    </LocalizationProvider>
+                  );
+                }}
+              />
             </Description>
 
             <Description>
               <SubHeading>{"Neophyte"}</SubHeading>
 
-              {/* <InputField
-                onQueryChange={onQueryChange}
-                fieldValue={neophyteFirstName}
-                fieldName={"neophyteFirstName"}
-                disabledStatus={false}
-                labelName={"First Name"}
-              /> */}
               <Wrapper>
                 <Field
                   {...register("neophyteFirstName", {
@@ -263,9 +287,22 @@ export const AddBaptismForm = () => {
                   value={neophyteFirstName}
                   autoComplete="off"
                   type={"text"}
-                  disabled={false}
                 />
                 <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("neophyteLastName", {
+                    required: true,
+                    value: neophyteLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"neophyteLastName"}
+                  value={neophyteLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
               </Wrapper>
             </Description>
 
