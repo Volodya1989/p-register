@@ -47,6 +47,9 @@ export const AddBaptismForm = () => {
   const [motherFirstName, setMotherFirstName] = useState("");
   const [motherLastName, setMotherLastName] = useState("");
   const [motherPhoneNumber, setMotherPhoneNumber] = useState("");
+  const [fatherFirstName, setFatherFirstName] = useState("");
+  const [fatherLastName, setFatherLastName] = useState("");
+  const [fatherPhoneNumber, setFatherPhoneNumber] = useState("");
 
   const [certificate, setCertificate] = useState(false);
   const [baptism, setBaptism] = useState(true);
@@ -114,6 +117,15 @@ export const AddBaptismForm = () => {
         case "motherPhoneNumber":
           setMotherPhoneNumber(e.currentTarget.value.trim());
           break;
+        case "fatherFirstName":
+          setFatherFirstName(e.currentTarget.value.trim());
+          break;
+        case "fatherLastName":
+          setFatherLastName(e.currentTarget.value.trim());
+          break;
+        case "fatherPhoneNumber":
+          setFatherPhoneNumber(e.currentTarget.value.trim());
+          break;
 
         default:
           console.log("default");
@@ -153,6 +165,9 @@ export const AddBaptismForm = () => {
       motherFirstName,
       motherLastName,
       motherPhoneNumber,
+      fatherFirstName,
+      fatherLastName,
+      fatherPhoneNumber,
     } = data;
     dispatch(
       addBaptism({
@@ -160,14 +175,14 @@ export const AddBaptismForm = () => {
         certificate,
         baptism,
         eucharist,
-        date: date.$d,
+        date: date?.$d,
         neophyte: {
           firstName: neophyteFirstName,
           lastName: neophyteLastName,
           middleName: neophyteMiddleName,
           email,
           phone,
-          dob: dob.$d,
+          dob: dob?.$d,
           cityOfBirth,
           stateOfBirth,
           street,
@@ -179,6 +194,11 @@ export const AddBaptismForm = () => {
           maidenName: motherLastName,
           firstName: motherFirstName,
           phone: motherPhoneNumber,
+        },
+        father: {
+          lastName: fatherLastName,
+          firstName: fatherFirstName,
+          phone: fatherPhoneNumber,
         },
       })
     ).then((data) => {
@@ -577,6 +597,49 @@ export const AddBaptismForm = () => {
                   onChange={onQueryChange}
                   name={"motherPhoneNumber"}
                   value={motherPhoneNumber}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Phone"}</Label>
+              </Wrapper>
+              <SubDescr>{"Father"}</SubDescr>
+              <Wrapper>
+                <Field
+                  {...register("fatherFirstName", {
+                    required: true,
+                    value: fatherFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"fatherFirstName"}
+                  value={fatherFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("fatherLastName", {
+                    required: true,
+                    value: fatherLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"fatherLastName"}
+                  value={fatherLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
+              </Wrapper>{" "}
+              <Wrapper>
+                <Field
+                  {...register("fatherPhoneNumber", {
+                    required: true,
+                    value: fatherPhoneNumber,
+                  })}
+                  onChange={onQueryChange}
+                  name={"fatherPhoneNumber"}
+                  value={fatherPhoneNumber}
                   autoComplete="off"
                   type={"text"}
                 />
