@@ -43,9 +43,36 @@ export const deleteBaptism = createAsyncThunk(
 
 export const addBaptism = createAsyncThunk(
   "baptisms/addBaptism",
-  async ({ name, number }, thunkAPI) => {
+  async (
+    {
+      sacrament,
+      certificate,
+      baptism,
+      eucharist,
+      dateSacramentPerformed,
+      neophyte,
+      mother,
+      father,
+      godParent_1,
+      godParent_2,
+      priest,
+    },
+    thunkAPI
+  ) => {
     try {
-      const response = await axios.post(baseBaptismURL, { name, number });
+      const response = await axios.post(baseBaptismURL, {
+        sacrament,
+        certificate,
+        baptism,
+        eucharist,
+        dateSacramentPerformed,
+        neophyte,
+        mother,
+        father,
+        godParent_1,
+        godParent_2,
+        priest,
+      });
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

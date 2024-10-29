@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useCallback, useEffect, useState, useRef } from "react";
 import useFetch from "use-http";
-
+import moment from "moment";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
 // import { InputField } from "components/FormComponents/InputField/InputField";
@@ -50,7 +50,14 @@ export const AddBaptismForm = () => {
   const [fatherFirstName, setFatherFirstName] = useState("");
   const [fatherLastName, setFatherLastName] = useState("");
   const [fatherPhoneNumber, setFatherPhoneNumber] = useState("");
-
+  const [firstGodparentFirstName, setFirstGodparentFirstName] = useState("");
+  const [firstGodparentLastName, setFirstGodparentLastName] = useState("");
+  const [firstGodparentPhoneNumber, setFirstGodparentPhoneNumber] =
+    useState("");
+  const [secondGodparentFirstName, setSecondGodparentFirstName] = useState("");
+  const [secondGodparentLastName, setSecondGodparentLastName] = useState("");
+  const [priestFirstName, setPriestFirstName] = useState("");
+  const [priestLastName, setPriestLastName] = useState("");
   const [certificate, setCertificate] = useState(false);
   const [baptism, setBaptism] = useState(true);
   const [eucharist, setEucharist] = useState(false);
@@ -126,7 +133,27 @@ export const AddBaptismForm = () => {
         case "fatherPhoneNumber":
           setFatherPhoneNumber(e.currentTarget.value.trim());
           break;
-
+        case "firstGodparentFirstName":
+          setFirstGodparentFirstName(e.currentTarget.value.trim());
+          break;
+        case "firstGodparentLastName":
+          setFirstGodparentLastName(e.currentTarget.value.trim());
+          break;
+        case "firstGodparentPhoneNumber":
+          setFirstGodparentPhoneNumber(e.currentTarget.value.trim());
+          break;
+        case "secondGodparentFirstName":
+          setSecondGodparentFirstName(e.currentTarget.value.trim());
+          break;
+        case "secondGodparentLastName":
+          setSecondGodparentLastName(e.currentTarget.value.trim());
+          break;
+        case "priestFirstName":
+          setPriestFirstName(e.currentTarget.value.trim());
+          break;
+        case "priestLastName":
+          setPriestLastName(e.currentTarget.value.trim());
+          break;
         default:
           console.log("default");
       }
@@ -168,21 +195,29 @@ export const AddBaptismForm = () => {
       fatherFirstName,
       fatherLastName,
       fatherPhoneNumber,
+      firstGodparentFirstName,
+      firstGodparentLastName,
+      firstGodparentPhoneNumber,
+      secondGodparentFirstName,
+      secondGodparentLastName,
+      priestFirstName,
+      priestLastName,
     } = data;
+
     dispatch(
       addBaptism({
         sacrament,
         certificate,
         baptism,
         eucharist,
-        date: date?.$d,
+        dateSacramentPerformed: moment(date?.$d).format("YYYY-MM-DD"),
         neophyte: {
           firstName: neophyteFirstName,
           lastName: neophyteLastName,
           middleName: neophyteMiddleName,
           email,
           phone,
-          dob: dob?.$d,
+          dob: moment(dob?.$d).format("YYYY-MM-DD"),
           cityOfBirth,
           stateOfBirth,
           street,
@@ -199,6 +234,19 @@ export const AddBaptismForm = () => {
           lastName: fatherLastName,
           firstName: fatherFirstName,
           phone: fatherPhoneNumber,
+        },
+        godParent_1: {
+          lastName: firstGodparentLastName,
+          firstName: firstGodparentFirstName,
+          phone: firstGodparentPhoneNumber,
+        },
+        godParent_2: {
+          lastName: secondGodparentLastName,
+          firstName: secondGodparentFirstName,
+        },
+        priest: {
+          firstName: priestFirstName,
+          lastName: priestLastName,
         },
       })
     ).then((data) => {
@@ -364,7 +412,6 @@ export const AddBaptismForm = () => {
                         label="Sacrament Performed"
                         value={field.value}
                         onChange={(date) => {
-                          console.log({ date });
                           field.onChange(date);
                         }}
                         variant="inline"
@@ -375,6 +422,36 @@ export const AddBaptismForm = () => {
                   );
                 }}
               />
+
+              <SubHeading>{"Priest"}</SubHeading>
+              <Wrapper>
+                <Field
+                  {...register("priestFirstName", {
+                    required: true,
+                    value: priestFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"priestFirstName"}
+                  value={priestFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("priestLastName", {
+                    required: true,
+                    value: priestLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"priestLastName"}
+                  value={priestLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
+              </Wrapper>
             </Description>
 
             <Description>
@@ -644,6 +721,82 @@ export const AddBaptismForm = () => {
                   type={"text"}
                 />
                 <Label htmlFor={1}>{"Phone"}</Label>
+              </Wrapper>
+            </Description>
+
+            <Description>
+              <SubHeading>{"Godparents"}</SubHeading>
+              <SubDescr>{"First Godparent"}</SubDescr>
+              <Wrapper>
+                <Field
+                  {...register("firstGodparentFirstName", {
+                    required: true,
+                    value: firstGodparentFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"firstGodparentFirstName"}
+                  value={firstGodparentFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("firstGodparentLastName", {
+                    required: true,
+                    value: firstGodparentLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"firstGodparentLastName"}
+                  value={firstGodparentLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
+              </Wrapper>{" "}
+              <Wrapper>
+                <Field
+                  {...register("firstGodparentPhoneNumber", {
+                    required: true,
+                    value: firstGodparentPhoneNumber,
+                  })}
+                  onChange={onQueryChange}
+                  name={"firstGodparentPhoneNumber"}
+                  value={firstGodparentPhoneNumber}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Phone"}</Label>
+              </Wrapper>
+              <SubDescr>{"Second Godparent"}</SubDescr>
+              <Wrapper>
+                <Field
+                  {...register("secondGodparentFirstName", {
+                    required: true,
+                    value: secondGodparentFirstName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"secondGodparentFirstName"}
+                  value={secondGodparentFirstName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"First Name"}</Label>
+              </Wrapper>
+              <Wrapper>
+                <Field
+                  {...register("secondGodparentLastName", {
+                    required: true,
+                    value: secondGodparentLastName,
+                  })}
+                  onChange={onQueryChange}
+                  name={"secondGodparentLastName"}
+                  value={secondGodparentLastName}
+                  autoComplete="off"
+                  type={"text"}
+                />
+                <Label htmlFor={1}>{"Last Name"}</Label>
               </Wrapper>
             </Description>
 
