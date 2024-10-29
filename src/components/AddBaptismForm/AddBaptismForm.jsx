@@ -291,6 +291,7 @@ export const AddBaptismForm = () => {
   useEffect(() => {
     handleLoading();
   }, [handleLoading]);
+
   return (
     <>
       {!isLoading && !isSubmitSuccessful ? (
