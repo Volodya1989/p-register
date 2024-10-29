@@ -18,7 +18,6 @@ export default function AddBaptism() {
       dispatch(fetchBaptisms());
     }
   }, [dispatch, isLoggedIn, baptisms.length]);
-
   return (
     isLoggedIn &&
     isVerified && (

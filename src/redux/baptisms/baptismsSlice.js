@@ -33,9 +33,8 @@ const baptismsSlice = createSlice({
     [addBaptism.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      console.log("===ACTION.PAYLOAD=====", action.payload);
-
       state.baptisms.listBaptisms.push(action.payload);
+      state.baptisms.total = state.baptisms.listBaptisms.length;
     },
     [addBaptism.rejected]: handleRejected,
     [deleteBaptism.pending]: handlePending,
