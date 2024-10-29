@@ -15,7 +15,11 @@ const handleRejected = (state, action) => {
 
 const baptismsSlice = createSlice({
   name: "baptisms",
-  initialState: { baptisms: [], isLoading: false, error: null },
+  initialState: {
+    baptisms: [],
+    isLoading: false,
+    error: null,
+  },
   extraReducers: {
     [fetchBaptisms.pending]: handlePending,
     [fetchBaptisms.fulfilled](state, action) {
@@ -29,7 +33,9 @@ const baptismsSlice = createSlice({
     [addBaptism.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.baptisms.push(action.payload);
+      console.log("===ACTION.PAYLOAD=====", action.payload);
+
+      state.baptisms.listBaptisms.push(action.payload);
     },
     [addBaptism.rejected]: handleRejected,
     [deleteBaptism.pending]: handlePending,
