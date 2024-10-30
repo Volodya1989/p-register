@@ -8,6 +8,8 @@ import { Controller } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Field, Wrapper, Label, SubDescr } from "./AddBaptismForm.styled";
 import {
@@ -22,6 +24,11 @@ import Loader from "components/Loader";
 import { useDispatch } from "react-redux";
 import { addBaptism } from "redux/baptisms/operations";
 
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).max(32).required(),
+});
+
 export const AddBaptismForm = () => {
   const dispatch = useDispatch();
 
@@ -30,34 +37,35 @@ export const AddBaptismForm = () => {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
   const { loading } = useFetch();
   const [sacrament, setSacrament] = useState("Baptism");
-  const [neophyteFirstName, setNeophyteFirstName] = useState("");
-  const [neophyteLastName, setNeophyteLastName] = useState("");
-  const [neophyteMiddleName, setNeophyteMiddleName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cityOfBirth, setCityOfBirth] = useState("");
-  const [stateOfBirth, setStateOfBirth] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setstate] = useState("");
-  const [zip, setZip] = useState("");
-  const [motherFirstName, setMotherFirstName] = useState("");
-  const [motherLastName, setMotherLastName] = useState("");
-  const [motherPhoneNumber, setMotherPhoneNumber] = useState("");
-  const [fatherFirstName, setFatherFirstName] = useState("");
-  const [fatherLastName, setFatherLastName] = useState("");
-  const [fatherPhoneNumber, setFatherPhoneNumber] = useState("");
-  const [firstGodparentFirstName, setFirstGodparentFirstName] = useState("");
-  const [firstGodparentLastName, setFirstGodparentLastName] = useState("");
+  const [neophyteFirstName, setNeophyteFirstName] = useState(null);
+  const [neophyteLastName, setNeophyteLastName] = useState(null);
+  const [neophyteMiddleName, setNeophyteMiddleName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [cityOfBirth, setCityOfBirth] = useState(null);
+  const [stateOfBirth, setStateOfBirth] = useState(null);
+  const [street, setStreet] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setstate] = useState(null);
+  const [zip, setZip] = useState(null);
+  const [motherFirstName, setMotherFirstName] = useState(null);
+  const [motherLastName, setMotherLastName] = useState(null);
+  const [motherPhoneNumber, setMotherPhoneNumber] = useState(null);
+  const [fatherFirstName, setFatherFirstName] = useState(null);
+  const [fatherLastName, setFatherLastName] = useState(null);
+  const [fatherPhoneNumber, setFatherPhoneNumber] = useState(null);
+  const [firstGodparentFirstName, setFirstGodparentFirstName] = useState(null);
+  const [firstGodparentLastName, setFirstGodparentLastName] = useState(null);
   const [firstGodparentPhoneNumber, setFirstGodparentPhoneNumber] =
-    useState("");
-  const [secondGodparentFirstName, setSecondGodparentFirstName] = useState("");
-  const [secondGodparentLastName, setSecondGodparentLastName] = useState("");
-  const [priestFirstName, setPriestFirstName] = useState("");
-  const [priestLastName, setPriestLastName] = useState("");
+    useState(null);
+  const [secondGodparentFirstName, setSecondGodparentFirstName] =
+    useState(null);
+  const [secondGodparentLastName, setSecondGodparentLastName] = useState(null);
+  const [priestFirstName, setPriestFirstName] = useState(null);
+  const [priestLastName, setPriestLastName] = useState(null);
   const [certificate, setCertificate] = useState(false);
   const [baptism, setBaptism] = useState(true);
   const [eucharist, setEucharist] = useState(false);
@@ -488,7 +496,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("neophyteMiddleName", {
-                    required: true,
+                    required: false,
                     value: neophyteMiddleName,
                   })}
                   onChange={onQueryChange}
@@ -513,6 +521,7 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Email"}</Label>
               </Wrapper>
+              <ErrorMessage>{`*${errors.email?.message}`}</ErrorMessage>
               <Wrapper>
                 <Field
                   {...register("phone", {
@@ -669,7 +678,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("motherPhoneNumber", {
-                    required: true,
+                    required: false,
                     value: motherPhoneNumber,
                   })}
                   onChange={onQueryChange}
@@ -712,7 +721,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("fatherPhoneNumber", {
-                    required: true,
+                    required: false,
                     value: fatherPhoneNumber,
                   })}
                   onChange={onQueryChange}
@@ -759,7 +768,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("firstGodparentPhoneNumber", {
-                    required: true,
+                    required: false,
                     value: firstGodparentPhoneNumber,
                   })}
                   onChange={onQueryChange}
@@ -774,7 +783,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("secondGodparentFirstName", {
-                    required: true,
+                    required: false,
                     value: secondGodparentFirstName,
                   })}
                   onChange={onQueryChange}
@@ -788,7 +797,7 @@ export const AddBaptismForm = () => {
               <Wrapper>
                 <Field
                   {...register("secondGodparentLastName", {
-                    required: true,
+                    required: false,
                     value: secondGodparentLastName,
                   })}
                   onChange={onQueryChange}
