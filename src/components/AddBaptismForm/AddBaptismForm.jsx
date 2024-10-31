@@ -26,7 +26,11 @@ import { addBaptism } from "redux/baptisms/operations";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(8).max(32).required(),
+  name: yup.string().required(),
+  dateSacramentPerformed: yup.date().required(),
+  neophyte: yup.object().shape({
+    firstName: yup.string().required(),
+  }),
 });
 
 export const AddBaptismForm = () => {
@@ -432,6 +436,10 @@ export const AddBaptismForm = () => {
                 }}
               />
 
+              {errors.dateSacramentPerformed?.message && (
+                <ErrorMessage>{`Date when sacrament performed is required`}</ErrorMessage>
+              )}
+
               <SubHeading>{"Priest"}</SubHeading>
               <Wrapper>
                 <Field
@@ -479,6 +487,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"First Name"}</Label>
               </Wrapper>
+              {errors?.neophyte?.firstName?.message && (
+                <ErrorMessage>{`First name is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("neophyteLastName", {
@@ -521,7 +532,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Email"}</Label>
               </Wrapper>
-              <ErrorMessage>{`*${errors.email?.message}`}</ErrorMessage>
+              {errors.email?.message && (
+                <ErrorMessage>{`Email is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("phone", {
