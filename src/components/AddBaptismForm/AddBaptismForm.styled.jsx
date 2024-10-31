@@ -137,9 +137,10 @@ export const Field = styled.input`
   `}
 `;
 export const ErrorMessage = styled.p`
-  font-size: 15px;
+  font-size: 12px;
   line-height: calc(18 / 12);
   color: red;
+  text-align: left;
 `;
 
 export const MainButton = styled.input`
