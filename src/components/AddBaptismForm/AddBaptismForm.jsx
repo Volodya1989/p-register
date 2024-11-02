@@ -92,7 +92,6 @@ export const AddBaptismForm = () => {
       switch (curValue) {
         case "sacrament":
           setSacrament(e.currentTarget.value.trim());
-          console.log("SACRAMENT", e.currentTarget.value.trim());
           break;
         case "neophyteFirstName":
           setNeophyteFirstName(e.currentTarget.value.trim());
