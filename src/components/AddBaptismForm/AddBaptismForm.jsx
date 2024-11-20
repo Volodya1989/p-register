@@ -261,7 +261,7 @@ export const AddBaptismForm = () => {
         },
       })
     ).then((data) => {
-      console.log("Data", data.meta.arg);
+      console.log("Data ", data.meta.arg);
       try {
         clearTimeout(timeoutRef.current);
         setIsLoading(false);
@@ -503,6 +503,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Last Name"}</Label>
               </Wrapper>
+              {errors?.neophyte?.lastName?.message && (
+                <ErrorMessage>{`Last name is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("neophyteMiddleName", {
@@ -548,6 +551,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Phone"}</Label>
               </Wrapper>
+              {errors.phone?.message && (
+                <ErrorMessage>{`Phone is required`}</ErrorMessage>
+              )}
               <Controller
                 name="dob"
                 control={control}
