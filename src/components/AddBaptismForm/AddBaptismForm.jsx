@@ -30,6 +30,15 @@ const schema = yup.object().shape({
   dateSacramentPerformed: yup.date().required(),
   neophyte: yup.object().shape({
     firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    phone: yup.string().required(),
+    dob: yup.string().required(),
+    cityOfBirth: yup.string().required(),
+    stateOfBirth: yup.string().required(),
+    street: yup.string().required(),
+    city: yup.string().required(),
+    state: yup.string().required(),
+    zip: yup.string().required(),
   }),
 });
 
@@ -551,7 +560,7 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Phone"}</Label>
               </Wrapper>
-              {errors.phone?.message && (
+              {errors.neophyte?.phone?.message && (
                 <ErrorMessage>{`Phone is required`}</ErrorMessage>
               )}
               <Controller
@@ -576,6 +585,9 @@ export const AddBaptismForm = () => {
                   );
                 }}
               />
+              {errors.neophyte?.dob?.message && (
+                <ErrorMessage>{`Date of birth is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("cityOfBirth", {
@@ -590,6 +602,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"City of Birth"}</Label>
               </Wrapper>
+              {errors.neophyte?.cityOfBirth?.message && (
+                <ErrorMessage>{`City of Birth is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("stateOfBirth", {
@@ -604,6 +619,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"State of Birth"}</Label>
               </Wrapper>
+              {errors.neophyte?.stateOfBirth?.message && (
+                <ErrorMessage>{`State of Birth is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("street", {
@@ -618,6 +636,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Street"}</Label>
               </Wrapper>
+              {errors.neophyte?.street?.message && (
+                <ErrorMessage>{`Street is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("city", {
@@ -632,6 +653,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"City"}</Label>
               </Wrapper>
+              {errors.neophyte?.city?.message && (
+                <ErrorMessage>{`City is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("state", {
@@ -646,6 +670,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"State"}</Label>
               </Wrapper>
+              {errors.neophyte?.state?.message && (
+                <ErrorMessage>{`State is required`}</ErrorMessage>
+              )}
               <Wrapper>
                 <Field
                   {...register("zip", {
@@ -661,7 +688,9 @@ export const AddBaptismForm = () => {
                 <Label htmlFor={1}>{"Zip"}</Label>
               </Wrapper>
             </Description>
-
+            {errors.neophyte?.zip?.message && (
+              <ErrorMessage>{`Zip is required`}</ErrorMessage>
+            )}
             <Description>
               <SubHeading>{"Parents"}</SubHeading>
               <SubDescr>{"Mother"}</SubDescr>
