@@ -43,10 +43,12 @@ const schema = yup.object().shape({
   mother: yup.object().shape({
     maidenName: yup.string().required(),
     firstName: yup.string().required(),
+    phone: yup.string().required(),
   }),
   father: yup.object().shape({
     lastName: yup.string().required(),
     firstName: yup.string().required(),
+    phone: yup.string().required(),
   }),
   godParent_1: yup.object().shape({
     lastName: yup.string().required(),
@@ -759,6 +761,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Phone"}</Label>
               </Wrapper>
+              {errors.mother?.phone?.message && (
+                <ErrorMessage>{`Phone number is required`}</ErrorMessage>
+              )}
               <SubDescr>{"Father"}</SubDescr>
               <Wrapper>
                 <Field
@@ -808,6 +813,9 @@ export const AddBaptismForm = () => {
                 />
                 <Label htmlFor={1}>{"Phone"}</Label>
               </Wrapper>
+              {errors.father?.phone?.message && (
+                <ErrorMessage>{`Phone number is required`}</ErrorMessage>
+              )}
             </Description>
 
             <Description>
